@@ -4,19 +4,6 @@
   width: 18px;
   height: 18px;
 
-  &_red::after {
-    background-color: red;
-  }
-
-  &_white::after {
-    background-color: #fff;
-    border: 0.4px solid $gray;
-  }
-
-  &_black::after {
-    background-color: $main-color;
-  }
-
   &_check {
     border: 0.4px solid #929292;
   }

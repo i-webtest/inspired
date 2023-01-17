@@ -1,4 +1,40 @@
+import { TITLE } from '../const';
 import { createElement } from '../createElement';
+
+const container = createElement('div', {
+  className: 'container',
+});
+
+const content = createElement(
+  'div',
+  {
+    className: 'hero__content',
+  },
+  {
+    parent: container,
+  },
+);
+
+const titleElem = createElement(
+  'h2',
+  {
+    className: 'hero__title',
+  },
+  {
+    parent: content,
+  },
+);
+
+const heroLink = createElement(
+  'a',
+  {
+    className: 'hero__link',
+    textContent: 'Перейти',
+  },
+  {
+    parent: content,
+  },
+);
 
 export const renderHero = (gender) => {
   const hero = document.querySelector('.hero');
@@ -12,46 +48,8 @@ export const renderHero = (gender) => {
 
   hero.className = `hero hero__${gender}`;
 
-  const container = createElement(
-    'div',
-    {
-      className: 'container',
-    },
-    {
-      parent: hero,
-    },
-  );
+  hero.append(container);
 
-  const heroContent = createElement(
-    'div',
-    {
-      className: 'hero__content',
-    },
-    {
-      parent: container,
-    },
-  );
-
-  const heroTitle = createElement(
-    'h2',
-    {
-      className: 'hero__title',
-      textContent: 'Новая коллекция Бюстгальтер-балконет',
-    },
-    {
-      parent: heroContent,
-    },
-  );
-
-  const heroLink = createElement(
-    'a',
-    {
-      className: 'hero__link',
-      textContent: 'Перейти',
-      href: '',
-    },
-    {
-      parent: heroContent,
-    },
-  );
+  titleElem.textContent = TITLE[gender].title;
+  heroLink.href = `#/product/${TITLE[gender].id}`;
 };

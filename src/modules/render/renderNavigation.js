@@ -1,8 +1,25 @@
-import { dataNavigation } from '../dataNavigation';
+import { DATA } from '../const';
 import { createElement } from '../createElement';
 
-export const renderNavigation = (gender) => {
+let flag = false;
+let oldGender = '';
+
+export const renderNavigation = (gender, category) => {
   const navigation = document.querySelector('.navigation');
+
+  if (!gender) {
+    navigation.style.display = 'none';
+  } else {
+    navigation.style.display = '';
+  }
+
+  if (flag && oldGender === gender) {
+    return;
+  }
+
+  oldGender = gender;
+
+  flag = true;
 
   navigation.textContent = '';
 
@@ -26,13 +43,13 @@ export const renderNavigation = (gender) => {
     },
   );
 
-  for (const genderName in dataNavigation) {
+  for (const genderName in DATA.navigation) {
     createElement(
       'a',
       {
         className: `gender__link ${gender === genderName ? 'gender__link_active' : ''}`,
         href: `#/${genderName}`,
-        textContent: dataNavigation[genderName].title,
+        textContent: DATA.navigation[genderName].title,
       },
       {
         parent: createElement(
@@ -48,7 +65,7 @@ export const renderNavigation = (gender) => {
     );
   }
 
-  const categoryElems = dataNavigation[gender].list.map((item) =>
+  const categoryElems = DATA.navigation[gender].list.map((item) =>
     createElement(
       'li',
       {
@@ -58,7 +75,7 @@ export const renderNavigation = (gender) => {
         append: createElement(
           'a',
           {
-            className: 'category__link',
+            className: `category__link ${category === item.slug ? 'category__link_active' : ''}`,
             textContent: item.title,
             href: `#/${gender}/${item.slug}`,
           },

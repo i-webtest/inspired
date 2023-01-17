@@ -1,9 +1,12 @@
 import { createElement } from '../createElement';
 import logo from '../../img/logo.svg';
+import { search, searchToggle } from './renderSearch';
 
-export const searchButton = createElement('button', {
-  className: 'header__link',
-  innerHTML: `
+export const searchButton = createElement(
+  'button',
+  {
+    className: 'header__link',
+    innerHTML: `
     <svg
       width="24"
       height="24"
@@ -26,7 +29,13 @@ export const searchButton = createElement('button', {
       />
     </svg>
   `,
-});
+  },
+  {
+    cb(btn) {
+      btn.addEventListener('click', searchToggle);
+    },
+  },
+);
 
 export const cartLink = createElement('a', {
   className: 'header__link',
@@ -83,9 +92,21 @@ const container = createElement('div', {
   innerHTML: `
     <a href="tel:89304902620" class="header__phone header__link">8 930 490 26 20</a>
 
-    <img class="header__logo" src="${logo}" alt="Логотип inpired" />
+    
   `,
 });
+
+createElement(
+  'a',
+  {
+    className: 'header__logo',
+    href: '/#',
+    innerHTML: `<img src="${logo}" alt="Логотип inpired" />`,
+  },
+  {
+    parent: container,
+  },
+);
 
 const nav = createElement(
   'div',
@@ -138,6 +159,6 @@ createElement(
 
 export const renderHeader = () => {
   const header = document.querySelector('.header');
-
   header.append(container);
+  header.after(search);
 };
